@@ -6,7 +6,7 @@ template classes. Preprocessor macros are not necessary to define TypeStrings,
 however, I have created a couple to rapidly define the fundamental types and
 classes with arbitrary numbers of template parameters
 
-TODO:  handling for template template types yet.
+TODO:  handling for template template types
 
 Currently works with GCC 8.1.1 and Clang 7
 
