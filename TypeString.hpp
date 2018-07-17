@@ -24,18 +24,6 @@ template<typename T>
 constexpr type_string_t<T> TypeString<T>::value; 
 
 
-template<typename>
-struct TypeString { 
-  using type = decltype(fg_clr::lightred + token::question_mark + fg_default);
-  static constexpr auto value = fg_clr::lightred + token::question_mark + fg_default;
-};
-
-template<typename T> 
-using type_string_t = typename TypeString<T>::type;
-
-template<typename T>
-constexpr type_string_t<T> TypeString<T>::value; 
-
 
 
 
