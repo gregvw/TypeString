@@ -2,6 +2,10 @@
 #ifndef PREPROCESSOR_HPP
 #define PREPROCESSOR_HPP
 
+#define _QUOTE_(x) #x
+#define QUOTE(x) _QUOTE_(x)
+
+
 #define PREPROC_ARRAY_1(T)  T##0
 #define PREPROC_ARRAY_2(T)  PREPROC_ARRAY_1(T)  , T##1
 #define PREPROC_ARRAY_3(T)  PREPROC_ARRAY_2(T)  , T##2

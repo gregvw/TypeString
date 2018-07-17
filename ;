@@ -4,7 +4,7 @@
 
 using ColorCode = std::size_t;
 namespace color {
-namespace fg {
+namespace fc {
 constexpr const ColorCode Default      = 39; 
 constexpr const ColorCode Black        = 30; 
 constexpr const ColorCode Red          = 31; 
@@ -23,7 +23,6 @@ constexpr const ColorCode LightMagenta = 95;
 constexpr const ColorCode LightCyan    = 96; 
 constexpr const ColorCode White        = 97; 
 
-#ifdef COLORED_OUTPUT
 template<ColorCode C=Default> 
 struct ColorString {
   static constexpr auto value = static_string("\033[") +
@@ -31,13 +30,6 @@ struct ColorString {
                                 static_string("m");                    
   static constexpr auto digits = num_digits<C>();
 }; // ColorString
-#else // No colors
-template<ColorCode C=Default> 
-struct ColorString {
-  static constexpr auto value  = static_string("");
-  static constexpr auto digits = 0;
-}; // ColorString
-#endif
 
 template<ColorCode C>
 constexpr StaticString<ColorString<C>::num_digits>
@@ -54,7 +46,7 @@ constexpr auto cyan         = ColorString<Cyan>::value;
 constexpr auto lightgray    = ColorString<LightGray>::value;
 constexpr auto darkgray     = ColorString<DarkGray>::value;
 constexpr auto lightred     = ColorString<LightRed>::value;
-constexpr auto lightgreen   = ColorString<LightGreen>::value;
+constexpr auto lightgreen   = ColorString<LightGreen::value;
 constexpr auto lightyellow  = ColorString<LightYellow>::value;
 constexpr auto lightblue    = ColorString<LightBlue>::value;
 constexpr auto lightmagenta = ColorString<LightMagenta>::value;
@@ -82,7 +74,6 @@ constexpr const ColorCode LightMagenta = 105;
 constexpr const ColorCode LightCyan    = 106; 
 constexpr const ColorCode White        = 107;
 
-#ifdef COLORED_OUTPUT
 template<ColorCode C=Default> 
 struct ColorString {
   static constexpr auto value = static_string("\033[") +
@@ -90,13 +81,6 @@ struct ColorString {
                                 static_string("m");                    
   static constexpr auto digits = num_digits<C>();
 }; // ColorString
-#else // No Colors
-template<ColorCode C=Default> 
-struct ColorString {
-  static constexpr auto value = static_string("");
-  static constexpr auto digits = num_digits<C>();
-}; // ColorString
-#endif // COLORED_OUTPUT
 
 template<ColorCode C>
 constexpr StaticString<ColorString<C>::num_digits>
@@ -122,16 +106,6 @@ constexpr auto white        = ColorString<White>::value;
 
 } // namespace bg
 } // namespace color
-
-namespace fg_clr = color::fg;
-namespace bg_clr = color::bg;
-
-constexpr const ColorCode FG_DEFAULT = color::fg::Default;
-constexpr const ColorCode BG_DEFAULT = color::bg::Default;
-
-constexpr auto fg_default    = fg_clr::reset;
-constexpr auto bg_default    = bg_clr::reset;
-constexpr auto color_default = fg_clr::reset + bg_clr::reset;
 
 #endif // COLORS_HPP
 
