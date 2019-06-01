@@ -1,3 +1,4 @@
 include_directories( ${TYPESTRING_INCLUDE} )
 
-add_executable( test_01 test_01.cpp )
+add_executable( colors colors.cpp )
+add_executable( fundamental fundamental.cpp )
