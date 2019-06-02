@@ -83,7 +83,6 @@ constexpr auto undefined_type = color(s_bold,s_underline,f_light_red) +
 template<size_t N>
 constexpr auto integer_v = integer_color + digits_to_cts<N>() +  reset_color;
 
-
 } // namespace TypeString
 
 #endif  // COLORDEFS_HPP

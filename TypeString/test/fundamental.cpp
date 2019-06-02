@@ -17,14 +17,8 @@ int main( int argc, char* argv[] ) {
 
   double _double_array[10];
 
-  cout << std::is_array_v<decltype(_double_array)> << endl;
-  cout << type_string(_int)  << endl;
-  cout << type_string(_double_array)  << endl;
-  cout << type_string(std::array<double,4>{})  << endl;
-
-  cout << type_string(_int_ptr)  << endl;
-  cout << type_string(_uint) << endl;
-  cout << type_string(_char) << endl;
+  cout << type_string<decltype(_int)>()           << endl;
+  cout << type_string<decltype(_double_array)>()  << endl;
 
   return 0;
 }
