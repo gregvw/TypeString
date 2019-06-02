@@ -67,21 +67,53 @@ constexpr auto reset_color = color(s_normal,f_default,b_default);
 constexpr auto comma_color          = color(f_light_gray);
 constexpr auto parenthesis_color    = color(f_light_gray);
 constexpr auto square_bracket_color = color(f_light_gray);
-constexpr auto angle_bracket_color  = color(f_light_cyan);
-constexpr auto operator_color       = color(f_white);
+constexpr auto angle_bracket_color  = color(s_bold,f_light_yellow);
+constexpr auto operator_color       = color(s_normal,f_white);
 constexpr auto integer_color        = color(f_light_magenta);
 constexpr auto string_color         = color(f_magenta);
 constexpr auto char_color           = color(f_light_magenta);
 constexpr auto fundamental_color    = color(s_bold,f_light_green);
 constexpr auto class_color          = color(s_bold,s_italic,f_light_blue);
+constexpr auto namespace_color      = color(s_bold,f_light_red);
 
-constexpr auto const_type     = color(f_light_yellow) + "const " + reset_color;
+
+constexpr auto const_type = color(f_light_yellow) + "const " + reset_color;
 
 constexpr auto undefined_type = color(s_bold,s_underline,f_light_red) +
                                 "undefined type" + reset_color;
 
+constexpr auto scope = color(s_normal,f_dark_gray) + "::" + reset_color;
+constexpr auto comma = comma_color + "," + reset_color;
+
 template<size_t N>
-constexpr auto integer_v = integer_color + digits_to_cts<N>() +  reset_color;
+constexpr auto in_namespace( const char(&ns)[N] ) {
+  return namespace_color + to_cts(ns) + scope; 
+}
+
+template<size_t N>
+constexpr auto class_name( const char(&cn)[N] ) {
+  return class_color + to_cts(cn) + reset_color; 
+}
+
+
+template<auto N>
+constexpr auto abs_v = N < 0 ? -N : N;
+
+template<auto N>
+constexpr auto sign_f(){ 
+  if constexpr(N < 0) return to_cts("-");
+  return to_cts(" "); 
+}
+
+template<auto N> 
+constexpr auto sign_v = sign_f<N>();
+
+template<auto N>
+constexpr auto integer_v = integer_color + sign_v<N> + digits_to_cts<abs_v<N>>() + reset_color;
+
+template<typename T>
+constexpr auto class_v = class_color + to_cts<T>() + reset_color;
+
 
 } // namespace TypeString
 

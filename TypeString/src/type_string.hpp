@@ -33,10 +33,20 @@ template<> struct type_cts<char32_t>           { static constexpr auto value = f
 
 template<typename T> constexpr auto type_cts_v = type_cts<T>::value;
 
-template<typename T> struct square_bracket() {  
+constexpr auto square_brackets = []( auto arg ) { return square_bracket_color + "[" + 
+	                                                 arg + 
+					                 square_bracket_color + "]" + 
+					                 reset_color; };
+
+constexpr auto angle_brackets = []( auto arg ) { return angle_bracket_color + "<" + 
+	                                                arg + 
+			     		                angle_bracket_color + ">" + 
+                                                        reset_color; };
 
 template<typename T, size_t N>
-struct type_cts<T[N]> { static constexpr auto value = type_cts_v<T> + square_bracket( digits_to_cts<N>() ); };
+struct type_cts<T[N]> { static constexpr auto value = type_cts_v<T> + square_brackets( digits_to_cts<N>() ); };
+
+
 
 
 template<typename T> 
