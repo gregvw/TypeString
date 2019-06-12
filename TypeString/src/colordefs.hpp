@@ -57,11 +57,12 @@ constexpr auto b_light_magenta = to_cts("105");
 constexpr auto b_light_cyan    = to_cts("106"); 
 constexpr auto b_white         = to_cts("107");
 
+
 constexpr auto color = [] ( auto...args ) {
   return cts_cat(esc,delimited(char_v<';'>,args... ),to_cts("m"));
 };
-
 constexpr auto reset_color = color(s_normal,f_default,b_default);
+
 
 // Customization
 constexpr auto comma_color          = color(f_light_gray);
@@ -85,10 +86,14 @@ constexpr auto undefined_type = color(s_bold,s_underline,f_light_red) +
 constexpr auto scope = color(s_normal,f_dark_gray) + "::" + reset_color;
 constexpr auto comma = comma_color + "," + reset_color;
 
+#if DISPLAY_NAMESPACE
 template<size_t N>
 constexpr auto in_namespace( const char(&ns)[N] ) {
   return namespace_color + to_cts(ns) + scope; 
 }
+#else 
+inline constexpr auto in_namespace(...) { return to_cts(""); }
+#endif
 
 template<size_t N>
 constexpr auto class_name( const char(&cn)[N] ) {
@@ -114,6 +119,7 @@ constexpr auto integer_v = integer_color + sign_v<N> + digits_to_cts<abs_v<N>>()
 template<typename T>
 constexpr auto class_v = class_color + to_cts<T>() + reset_color;
 
+constexpr auto ptr_v = color(s_bold,f_white) + "*" + reset_color;
 
 } // namespace TypeString
 
