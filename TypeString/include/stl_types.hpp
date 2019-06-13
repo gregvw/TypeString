@@ -128,13 +128,6 @@ struct type_cts<std::pair<first_type,second_type>> {
                                 angle_brackets( type_cts_v<first_type> + comma + type_cts_v<second_type> );
 };
 
-// shared_ptr
-template<typename T>
-struct type_cts<std::shared_ptr<T>> {
-  static constexpr auto value = in_namespace("std") + 
-                                class_name("shared_ptr") + 
-                                angle_brackets( type_cts_v<T> );
-};
 
 
 STL_TYPESTRING_T0(string);
