@@ -7,7 +7,7 @@
 template<typename> struct is_templated : public std::false_type {};
 
 #define PRINT_TYPE(X) \
-std::cout << type_string<decltype(X)>() << std::endl;
+std::cout << "type(" << QUOTE(X) << ") = " << type_string<decltype(X)>() << std::endl;
 
 using namespace TypeString;
 
