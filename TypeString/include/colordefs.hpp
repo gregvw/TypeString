@@ -78,7 +78,8 @@ constexpr auto class_color          = color(s_bold,s_italic,f_light_blue);
 constexpr auto namespace_color      = color(s_bold,f_light_red);
 
 
-constexpr auto const_type = color(f_light_yellow) + "const " + reset_color;
+constexpr auto const_type = color(f_light_cyan) + "const " + reset_color;
+
 
 constexpr auto undefined_type = color(s_bold,s_underline,f_light_red) +
                                 "undefined type" + reset_color;
