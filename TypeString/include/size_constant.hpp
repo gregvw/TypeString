@@ -2,11 +2,6 @@
 #ifndef SIZE_CONSTANT_HPP
 #define SIZE_CONSTANT_HPP
 
-#include <ostream>
-#include <string>
-#include <type_traits>
-
-
 namespace TypeString {
 
 using std::size_t;

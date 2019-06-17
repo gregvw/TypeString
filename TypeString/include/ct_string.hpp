@@ -5,7 +5,6 @@
 #include <utility>
 #include "size_constant.hpp"
 
-// Compile Time "String" 
 
 namespace TypeString {
 
@@ -179,14 +178,7 @@ constexpr auto delimited( Delimiter d, First&& f, Rest&&... r ) {
 			 delimited(std::forward<Delimiter>(d),std::forward<Rest>(r)...) );
 }
 
-//template<typename T, char d>
-//constexpr auto delimited( T&& t ) {
-//  return std::make_pair(std::forward<T>(t),char_v<d>); 
-//}
-
 } // namespace TypeString
-
-
 
 #endif // CT_STRING_HPP
 

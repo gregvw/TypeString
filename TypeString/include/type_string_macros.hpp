@@ -1,30 +1,14 @@
 #pragma once
-#ifndef STL_TYPES_HPP
-#define STL_TYPES_HPP
+#ifndef TYPESTRING_MACROS_HPP
+#define TYPESTRING_MACROS_HPP
 
-#include <array>
-#include <deque>
-#include <forward_list>
-#include <functional>
-#include <initializer_list>
-#include <list>
-#include <map>
-#include <memory>
-#include <ostream>
-#include <queue>
-#include <set>
-#include <stack>
-#include <string>
-#include <tuple>
-#include <vector>
-
-#define STL_TYPESTRING_NONTEMPLATE( TYPENAME )               \
+#define TYPESTRING_NONTEMPLATE( TYPENAME )               \
 namespace TypeString {                                       \
 template<>                                                   \
-struct type_cts<std:: TYPENAME> {                            \
-  static constexpr auto value = in_namespace("std") +        \
-                                class_name(QUOTE(TYPENAME)); \
+struct type_cts<TYPENAME> {                            \
+  static constexpr auto value = class_name(QUOTE(TYPENAME)); \
 }; } // namespace TypeString                                                              
+
 
 #define TYPE_CTS_V_1(T)  type_cts_v<T##0>
 #define TYPE_CTS_V_2(T)  TYPE_CTS_V_1(T)  + comma + type_cts_v<T##1>
@@ -60,74 +44,22 @@ struct type_cts<std:: TYPENAME> {                            \
 #define TYPE_CTS_V(N)    TYPE_CTS_V_##N(T)
 
 
-#define STL_TYPESTRING( TYPENAME, K )                            \
+#define TYPESTRING( TYPENAME, K )                                \
 namespace TypeString {                                           \
 template<TEMPLATE_DECL(K)>                                       \
-struct type_cts<std:: TYPENAME<TEMPLATE_PARAM(K)>> {             \
-  static constexpr auto value = in_namespace("std") +            \
-                                class_name(QUOTE(TYPENAME)) +    \
+struct type_cts<TYPENAME<TEMPLATE_PARAM(K)>> {                   \
+  static constexpr auto value = class_name(QUOTE(TYPENAME)) +    \
                                 angle_brackets( TYPE_CTS_V(K) ); \
 }; } // namespace TypeString
 
 
-#define STL_VARIADIC_TYPESTRING( TYPENAME ) \
+#define VARIADIC_TYPESTRING( TYPENAME ) \
 namespace TypeString {                      \
 template<typename... Ts> \
-struct type_cts<std:: TYPENAME <Ts...>> { \
-  static constexpr auto value = in_namespace("std") + \
-                                class_name(QUOTE(TYPENAME)) + \
+struct type_cts<TYPENAME <Ts...>> { \
+  static constexpr auto value = class_name(QUOTE(TYPENAME)) + \
                                 angle_brackets( delimited( comma, type_cts_v<Ts>... ) ); \
 }; } // namespace TypeString
 
-
-STL_TYPESTRING(allocator,1);
-STL_TYPESTRING(basic_ostream,2);
-STL_TYPESTRING(basic_string,3);
-STL_TYPESTRING(char_traits,1);
-STL_TYPESTRING(default_delete,1);
-STL_TYPESTRING(deque,2);
-STL_TYPESTRING(equal_to,1);
-STL_TYPESTRING_NONTEMPLATE(false_type);
-STL_TYPESTRING(forward_list,2);
-STL_TYPESTRING(greater,1);
-STL_TYPESTRING(greater_equal,1);
-STL_TYPESTRING(initializer_list,1);
-STL_TYPESTRING(less,1);
-STL_TYPESTRING(less_equal,1);
-STL_TYPESTRING(list,2);
-STL_TYPESTRING(logical_and,1);
-STL_TYPESTRING(logical_or,1);
-STL_TYPESTRING(map,4);
-STL_TYPESTRING(multimap,4);
-STL_TYPESTRING(multiplies,1);
-STL_TYPESTRING(multiset,3);
-STL_TYPESTRING(not_equal_to,1);
-STL_TYPESTRING_NONTEMPLATE(nullptr_t);
-STL_TYPESTRING_NONTEMPLATE(ostream);
-STL_TYPESTRING(pair,2);
-STL_TYPESTRING(plus,1);
-STL_TYPESTRING(set,3);
-STL_TYPESTRING(shared_ptr,1);
-STL_TYPESTRING_NONTEMPLATE(string);
-STL_TYPESTRING(stack,2);
-STL_TYPESTRING_NONTEMPLATE(true_type);
-STL_VARIADIC_TYPESTRING(tuple);
-STL_TYPESTRING(unique_ptr,2);
-STL_TYPESTRING(vector,2);
-STL_TYPESTRING(weak_ptr,1);
-
-
-namespace TypeString {
-
-// array
-template<typename T, size_t N>
-struct type_cts<std::array<T,N>> {
-  static constexpr auto value = in_namespace("std") +
-                                class_name("array") +
-                                angle_brackets( type_cts_v<T> + comma + integer_v<N> );
-};
-
-} // namespace TypeString
-
-#endif //STL_TYPES_HPP
+#endif // TYPESTRING_MACROS_HPP
 

@@ -1,4 +1,6 @@
-#include "ct_string.hpp"
+#pragma once
+#ifndef DIGITS_HPP
+#define DIGITS_HPP
 
 namespace TypeString {
 
@@ -26,4 +28,5 @@ constexpr auto digits_to_cts() -> ct_string<num_digits<N>()> {
 
 } // namespace TypeString
 
+#endif // DIGITS_HPP
 

@@ -2,9 +2,6 @@
 #ifndef COLORDEFS_HPP
 #define COLORDEFS_HPP
 
-#include "ct_string.hpp"
-#include "digits.hpp"
-
 namespace TypeString {
 
 constexpr auto esc = to_cts("\033[");
@@ -79,10 +76,12 @@ constexpr auto namespace_color      = color(s_bold,f_light_red);
 
 
 constexpr auto const_type = color(f_light_cyan) + "const " + reset_color;
+constexpr auto volatile_type = color(f_light_cyan) + "volatile " + reset_color;
 
 
 constexpr auto undefined_type = color(s_bold,s_underline,f_light_red) +
                                 "undefined type" + reset_color;
+
 
 constexpr auto scope = color(s_normal,f_dark_gray) + "::" + reset_color;
 constexpr auto comma = comma_color + "," + reset_color;
@@ -114,6 +113,12 @@ constexpr auto sign_f(){
 template<auto N> 
 constexpr auto sign_v = sign_f<N>();
 
+template<size_t N>
+constexpr size_t num_digits();
+
+template<size_t N>
+constexpr auto digits_to_cts() -> ct_string<num_digits<N>()>;
+
 template<auto N>
 constexpr auto integer_v = integer_color + sign_v<N> + digits_to_cts<abs_v<N>>() + reset_color;
 
@@ -121,6 +126,7 @@ template<typename T>
 constexpr auto class_v = class_color + to_cts<T>() + reset_color;
 
 constexpr auto ptr_v = color(s_bold,f_white) + "*" + reset_color;
+constexpr auto ref_v = color(s_bold,f_white) + "&" + reset_color;
 
 } // namespace TypeString
 
